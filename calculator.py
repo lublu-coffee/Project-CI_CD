@@ -17,4 +17,6 @@ class Calculator:
     def division(a: int, b: int, reverse: bool = False):
         if reverse:
             a, b = b, a
+        if b == 0:
+            return None
         return a / b
