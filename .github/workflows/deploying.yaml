@@ -48,6 +48,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: [test, black]
     steps:
       - name: Deploy App
         run: echo Deploy App to Server ...
