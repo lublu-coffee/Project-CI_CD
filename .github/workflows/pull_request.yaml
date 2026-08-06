@@ -1,0 +1,13 @@
+name: Simple workflow
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    steps:
+      - name: print infa
+        run: echo "Event infa =>  ${{ toJSON(github.event) }}"
