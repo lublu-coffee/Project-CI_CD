@@ -1,8 +1,7 @@
-name: Testing Calculate App
+name: CI Calculate App
 on: push
 jobs:
-  test:
-    needs: black
+  black:
     runs-on: ubuntu-latest
     steps:
       - name: Get repository code
@@ -12,6 +11,40 @@ jobs:
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+
+      - name: Cache Poetry Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-dep-${{ hashFiles('poetry.lock') }}
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Create env and install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Check code formatting with Black
+        run: poetry run black --check .
+
+  test:
+    needs: black
+    strategy:
+      matrix:
+        os: [ubuntu-latest, window-latest]
+        python-version: ['3.10', '3.12', '3.14']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v7
+
+      - name: Install Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Cache Poetry Dependencies
         uses: actions/cache@v3
@@ -30,35 +63,6 @@ jobs:
 
       - name: Testing App
         run: poetry run pytest -s -v
-
-  black:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get repository code
-        uses: actions/checkout@v7
-
-      - name: Install Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.12'
-
-      - name: Cache Poetry Dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pypoetry
-          key: poetry-dep-${{ hashFiles('poetry.toml') }}
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-
-      - name: Create env and install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Check code formatting with Black
-        run: poetry run black --check .
 
   deploy:
     runs-on: ubuntu-latest
