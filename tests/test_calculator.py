@@ -19,3 +19,10 @@ class TestCalculate:
         assert self.calc.minus(3, -3) == 6
         assert self.calc.minus(-3, -3) == 0
         assert self.calc.minus(2, 3) == -1
+
+    def test_minus_reverse(self):
+        assert self.calc.minus(3, 0, True) == -3
+        assert self.calc.minus(3, 3, True) == 0
+        assert self.calc.minus(3, -3, True) == -6
+        assert self.calc.minus(-3, -3, True) == 0
+        assert self.calc.minus(2, 3, True) == 1
