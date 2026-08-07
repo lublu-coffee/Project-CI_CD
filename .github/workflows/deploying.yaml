@@ -1,5 +1,8 @@
 name: CI Calculate App
 on: push
+env:
+  PYTHON-ENV: ci-app-python-123
+  SIMPLE-CODE: 123
 jobs:
   black:
     runs-on: ubuntu-latest
@@ -38,7 +41,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: ['3.10', '3.12', '3.14']
+        python-version: ['3.12']
     runs-on: ${{ matrix.os }}
     steps:
       - name: Get repository code
@@ -85,4 +88,6 @@ jobs:
           pattern: testing-report-*
           merge-multiple: true
       - name: Deploy App
-        run: echo Deploy App to Server ...
+        run: |
+          echo Test-Deploy App with code ${{ env.SIMPLE-CODE }}
+          echo Deploy App to Server with code ${{ secrets.DEPLOY_CODE }} ...     
