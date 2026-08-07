@@ -70,9 +70,9 @@ jobs:
         run: poetry run pytest -s -v --html=test_report.html --self-contained-html
 
       - name: Upload Test-Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: testing-report
+          name: testing-report-${{ matrix.runs-on }}
           path: test_report.html
 
   deploy:
@@ -82,6 +82,7 @@ jobs:
       - name: Download Test-Report
         uses: actions/download-artifact@v3
         with:
-          name: testing-report
+          pattern: testing-report-*
+          merge-multiple: true
       - name: Deploy App
         run: echo Deploy App to Server ...
