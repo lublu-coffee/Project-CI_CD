@@ -1,5 +1,7 @@
 name: CI Calculate App
-on: push
+on:
+  push:
+    branches: master
 env:
   PYTHON-ENV: ci-app-python-123
   SIMPLE-CODE: 123

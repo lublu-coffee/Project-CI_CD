@@ -1,0 +1,16 @@
+name: World
+on:
+  workflow_run:
+    workflows: [Demo workflow]
+    types:
+      - completed
+
+jobs:
+  Hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello
+        run: echo 'Hello World !!!'
+
+      - name: Say Bye
+        run: echo 'Bye World !!!'
