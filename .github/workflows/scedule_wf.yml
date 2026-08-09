@@ -1,0 +1,11 @@
+name: Scheduling
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+  jobs:
+    input:
+      runs-on: ubuntu-latest
+      steps:
+        - name: input something
+          run: echo "Something"
