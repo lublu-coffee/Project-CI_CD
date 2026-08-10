@@ -1,7 +1,7 @@
 name: Work with Variables
 run-name: Variables CI
 env:
-  WF_GLOBAL_VAL: 123
+  WF_GLOBAL_VAR: 123
 
 on:
   push:
@@ -10,22 +10,28 @@ on:
 jobs:
   input-values:
     env:
-      WF_JOB_VAL: 456
+      WF_JOB_VAR: 456
     runs-on: ubuntu-latest
     steps:
       - name: input our values
         env:
-          WF_STEP_VAL: 789
+          WF_STEP_VAR: 789
         run: |
-          echo global var $WF_GLOBAL_VAL
-          echo job var $WF_JOB_VAL
-          echo now step var $WF_STEP_VAL
+          echo global var $WF_GLOBAL_VAR
+          echo job var $WF_JOB_VAR
+          echo now step var $WF_STEP_VAR
 
       - name: Change job var value
         env:
-          WF_JOB_VAL: 654
+          WF_JOB_VAR: 654 # меняем, но не на глобальном уровне
         run: |
           echo not our var $GITHUB_REPOSITORY
-          echo 'new output ${{github.repository.id}}'
+          echo 'new output ${{ github.repository }}'
 
-      - run: echo maybe new job var $WF_JOB_VAL
+      - name: Create var in storage
+        run: echo "NEW_VAR=1234567890" >> "$GITHUB_ENV"
+
+      - name: Output variables
+        run: |
+          echo new remote var $NEW_VAR
+          echo global var ${{ env.WF_GLOBAL_VAR }}
