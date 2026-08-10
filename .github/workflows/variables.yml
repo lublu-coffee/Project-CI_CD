@@ -34,4 +34,4 @@ jobs:
       - name: Output variables
         run: |
           echo new remote var $NEW_VAR
-          echo global var ${{ env.WF_GLOBAL_VAR }}
+          echo cool-remote var ${{ vars.COOL_VAR }}
