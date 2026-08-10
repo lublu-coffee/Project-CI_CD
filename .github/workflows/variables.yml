@@ -1,0 +1,31 @@
+name: Work with Variables
+run-name: Variables CI
+env:
+  WF_GLOBAL_VAL: 123
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  input-values:
+    env:
+      WF_JOB_VAL: 456
+    runs-on: ubuntu-latest
+    steps:
+      - name: input our values
+        env:
+          WF_STEP_VAL: 789
+        run: |
+          echo global var $WF_GLOBAL_VAL
+          echo job var $WF_JOB_VAL
+          echo now step var $WF_STEP_VAL
+
+      - name: Change job var value
+        env:
+          WF_JOB_VAL: 654
+        run: |
+          echo not our var $GITHUB_REPOSITORY
+          echo 'new output ${{github.repository.id}}'
+
+      - run: echo maybe new job var $WF_JOB_VAL

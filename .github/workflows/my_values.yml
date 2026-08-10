@@ -30,10 +30,6 @@ jobs:
           echo "Your name: ${{ inputs.name }}"
           echo "Your eyes color: ${{ inputs.eyes }}"
           echo "You are adult: ${{ inputs.age }}"
+
       - if: ${{ inputs.age == true }}
         run: echo "You can drink beer free"
-#  input-adult-infa:
-#    runs-on: ubuntu-latest
-#    if: ${{inputs.age == true }}
-#    steps:
-#      - run: echo "You can drink beer free"
