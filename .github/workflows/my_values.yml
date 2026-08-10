@@ -1,0 +1,37 @@
+name: Input Your Information
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: input your name
+        type: string
+        default: "Name"
+        required: true
+      eyes:
+        description: choose your eyes color
+        type: choice
+        options:
+          - green
+          - blue
+          - black
+          - brown
+        default: brown
+        required: true
+      age:
+        description: Are you adult ? (18 +)
+        type: boolean
+        default: false
+
+jobs:
+  input-infa:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Your name: ${{ inputs.name }}"
+          echo "Your eyes color: ${{ inputs.eyes }}"
+          echo "You are adult: ${{ inputs.age }}"
+#  input-adult-infa:
+#    runs-on: ubuntu-latest
+#    if: ${{inputs.age == true }}
+#    steps:
+#      - run: echo "You can drink beer free"
