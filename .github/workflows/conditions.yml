@@ -16,7 +16,7 @@ jobs:
 
   double_first_job:
     needs: first_job
-    if: ${{ cancelled() }}
+    if: ${{ cancelled() }} # так не работает : needs.first_job.result == 'cancelled'
     runs-on: ubuntu-latest
     steps:
       - name: Print OK
