@@ -11,6 +11,9 @@ jobs:
   get-work:
     runs-on: ubuntu-latest
     steps:
+      - name: Get repository code
+        uses: actions/checkout@v7
+
       - uses: ./.github/workflows/worker.yml
         with:
           get_task: ${{ inputs.task }}
