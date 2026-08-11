@@ -1,0 +1,29 @@
+name: Simple worker
+on:
+  workflow_call:
+    inputs:
+      get_task:
+        description: Task from Employer
+        type: string
+        default: Try work
+        required: true
+    outputs:
+      report:
+        value: ${{ jobs.complete-work.outputs.report }}
+
+jobs:
+  getting-work:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Work from Employer
+        run: echo Worker -> I receive task -> ${{ inputs.get_task }}
+
+  complete-work:
+    runs-on: ubuntu-latest
+    outputs:
+      report: ${{ steps.create-report.outputs.report }}
+    steps:
+      - name: Create report
+        id: create-report
+        run: echo "report=I done task !!!" >> GITHUB_OUTPUT
+

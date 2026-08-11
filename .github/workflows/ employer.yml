@@ -1,0 +1,23 @@
+name: Main Employer
+on:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: Task to be completed
+        type: string
+        default: Working all day !!!
+        required: true
+jobs:
+  get-work:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/worker.yml
+        with:
+          get_task: ${{ inputs.task }}
+
+  read-report:
+    needs: get-work
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get report from Worker
+        run: echo worker say -> ${{ needs.get-work.outputs.report }}
