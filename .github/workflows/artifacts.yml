@@ -1,0 +1,28 @@
+name: Artifact Work
+on: workflow_dispatch
+jobs:
+  create-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do math operation
+        run: echo 2 + 2
+      - name: Create math file
+        run: expr 2 + 2 > math.txt
+      - name: Save file
+        uses: actions\upload-artifact@v4
+        with:
+          name: math-operation
+          path: math.txt
+
+  read-file:
+    needs: create-file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download File
+        uses: actions\download-artifact@v4
+        with:
+          name: math-operation
+      - name: Read File
+        run: |
+          value = `cat math.txt`
+          echo operation result -> $value
