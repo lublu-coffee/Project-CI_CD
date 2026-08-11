@@ -16,16 +16,15 @@ jobs:
 
   double_first_job:
     needs: first_job
-    if: ${{ jobs.first_job.conclusion == 'cancelled' }}
+    if: ${{ needs.first_job.result == 'cancelled' }}
     runs-on: ubuntu-latest
     steps:
       - name: Print OK
-        if: ${{ success() }}
         run: echo Double First -> OK_OK_OK
 
   second_job:
     needs: first_job
-    if: ${{ jobs.first_job.conclusion == 'success' }}
+    if: ${{ needs.first_job.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Sleep TWO
