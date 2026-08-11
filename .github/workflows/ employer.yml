@@ -18,4 +18,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get report from Worker
-        run: echo worker say -> ${{ needs.get-work.outputs.report }}
+        run: echo worker say ${{ needs.get-work.outputs.report }}
