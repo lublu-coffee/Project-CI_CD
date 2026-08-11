@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Do math operation
-        run: echo 2 + 2
+        run: echo 2 + 2 = `2 + 2`
       - name: Create math file
         run: expr 2 + 2 > math.txt
       - name: Save file
@@ -24,5 +24,5 @@ jobs:
           name: math-operation
       - name: Read File
         run: |
-          value = `cat math.txt`
+          value=`cat math.txt`
           echo operation result -> $value
