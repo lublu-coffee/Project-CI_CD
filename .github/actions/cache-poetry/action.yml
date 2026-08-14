@@ -3,8 +3,6 @@ description: 'Local action description'
 runs:
   using: 'composite'
   steps:
-    - uses: actions/checkout@v4
-
     - name: Cache Poetry
       uses: actions/cache@v3
       with:

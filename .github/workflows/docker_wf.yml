@@ -6,7 +6,10 @@ jobs:
     container:
       image: python:3.12-slim
     steps:
+      - uses: actions/checkout@v4
+
       - name: Use Custom Action
         uses: ./.github/actions/cache-poetry
+
       - name: Test Users
         run: poetry run pytest -v
