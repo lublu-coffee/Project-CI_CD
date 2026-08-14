@@ -5,31 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: python:3.12-slim
-      ports:
-        - 8080:8080
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Cache Poetry
-        uses: actions/cache@v3
-        with:
-          path:
-            ~/.cache/pypoetry
-            .venv
-          key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
-          restore-keys: |
-            poetry-${{runner.os}}
-            poetry-
-
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-
-      - name: Create env and install dependencies
-        run: poetry install --no-interaction --no-root
-
+      - name: Use Custom Action
+        uses: ./.github/actions/cache-poetry
       - name: Test Users
         run: poetry run pytest -v
-
