@@ -10,6 +10,8 @@ jobs:
 
       - name: Use Custom Action
         uses: ./.github/actions/cache-poetry
+        with:
+          caching: 'false'
 
       - name: Test Users
         run: poetry run pytest -v
