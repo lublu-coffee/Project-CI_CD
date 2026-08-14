@@ -31,5 +31,5 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Test Users
-        run: poetry run pytest ./tests/test_users_db.py -v
+        run: poetry run pytest -v
 
