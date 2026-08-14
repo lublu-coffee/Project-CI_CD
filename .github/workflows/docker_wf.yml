@@ -8,6 +8,8 @@ jobs:
       ports:
         - 8080:8080
     steps:
+      - uses: actions/checkout@v4
+
       - name: Cache Poetry
         uses: actions/cache@v3
         with:
